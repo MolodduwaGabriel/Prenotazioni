@@ -1,0 +1,51 @@
+<div class="container">
+<h2>Prenota la tua visita</h2>
+<form  [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)"
+       class="jumbotron" >
+  <div class="form-group">
+    Nome: <input type="text" name="nome" [formControl]="myForm.controls['nome']"> <br><br>
+    Cognome: <input  type="text" name="cognome" [formControl]="myForm.controls['cognome']"> <br><br>
+    Indirizzo: <input  type="email" name="indirizzo" [formControl]="myForm.controls['indirizzo']"> <br><br>
+    Telefono: <input  type="tel" name="telefono" [formControl]="myForm.controls['telefono']"> <br><br>
+    Data Prenotazione: <input  type="date" name="data" [formControl]="myForm.controls['DataPrenotazione']"> <br><br>
+    Ora Prenotazione: <input  type="time" name="ora" [formControl]="myForm.controls['OraPrenotazione']"> <br><br>
+  </div>
+   <button type="submit" class="btn btn-primary">Prenota ora!</button><br><br><br>
+</form>
+</div>
+<div *ngIf="!myForm.controls['nome'].valid"
+     class="alert alert-danger">Nome non valido
+</div>
+<div *ngIf="!myForm.controls['cognome'].valid"
+     class="alert alert-danger">Cognome non valido
+</div>
+<div *ngIf="!myForm.controls['indirizzo'].valid"
+     class="alert alert-danger">Indirizzo non valido
+</div>
+<div *ngIf="!myForm.controls['telefono'].valid"
+     class="alert alert-danger">Telefono non valido
+</div>
+<div *ngIf="!myForm.controls['data'].valid"
+     class="alert alert-danger">Data Prenotazione non valido
+</div>
+<div *ngIf="!myForm.controls['ora'].valid"
+     class="alert alert-danger">Ora Prenotazione non valido
+</div>
+
+<br>
+<ul class="prenotazioni">
+  <li *ngFor="let p of prenotazione"
+    [class.selected]="p === selectedPrenotazione"
+    (click)="onSelect(p)">
+    <span class="badge">{{p.data}}</span>
+    <span class="ins">{{p.nome}} {{p.cognome}}</span>
+  </li>
+</ul>
+
+
+
+<hr>
+<div>
+<app-prenotazione-view *ngIf="selectedPrenotazione" [ciao]="selectedPrenotazione"></app-prenotazione-view>
+</div>
+
