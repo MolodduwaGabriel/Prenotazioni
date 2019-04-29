@@ -3,49 +3,54 @@
 <form  [formGroup]="myForm" (ngSubmit)="onSubmit(myForm.value)"
        class="jumbotron" >
   <div class="form-group">
-    Nome: <input type="text" name="nome" [formControl]="myForm.controls['nome']"> <br><br>
+    Nome: <input type="text" name="nome" [formControl]="myForm.controls['nome']">  <br><br>
     Cognome: <input  type="text" name="cognome" [formControl]="myForm.controls['cognome']"> <br><br>
     Indirizzo: <input  type="email" name="indirizzo" [formControl]="myForm.controls['indirizzo']"> <br><br>
-    Telefono: <input  type="tel" name="telefono" [formControl]="myForm.controls['telefono']"> <br><br>
-    Data Prenotazione: <input  type="date" name="data" [formControl]="myForm.controls['DataPrenotazione']"> <br><br>
-    Ora Prenotazione: <input  type="time" name="ora" [formControl]="myForm.controls['OraPrenotazione']"> <br><br>
+    Data Prenotazione: <input  type="date" name="data"min="2019-06-07" max="2019-12-31" [formControl]="myForm.controls['data']"> <br><br>
+    Ora Prenotazione: <input  type="time" name="ora" [formControl]="myForm.controls['ora']"> <br><br>
   </div>
-   <button type="submit" class="btn btn-primary">Prenota ora!</button><br><br><br>
+   <button class="btn btn-success btn-block" type="submit" [disabled]="!myForm.valid">Prenota</button>
 </form>
 </div>
 <div *ngIf="!myForm.controls['nome'].valid"
-     class="alert alert-danger">Nome non valido
+     class="alert alert-danger">
+       <div *ngIf="myForm.controls['nome'].hasError('required')" class="alert alert-danger">"nome" è richiesto</div>
 </div>
 <div *ngIf="!myForm.controls['cognome'].valid"
-     class="alert alert-danger">Cognome non valido
+     class="alert alert-danger">
+       <div *ngIf="myForm.controls['cognome'].hasError('required')" class="alert alert-danger">"cognome" è richiesto
+
+       </div>
 </div>
 <div *ngIf="!myForm.controls['indirizzo'].valid"
-     class="alert alert-danger">Indirizzo non valido
-</div>
-<div *ngIf="!myForm.controls['telefono'].valid"
-     class="alert alert-danger">Telefono non valido
-</div>
-<div *ngIf="!myForm.controls['data'].valid"
-     class="alert alert-danger">Data Prenotazione non valido
-</div>
-<div *ngIf="!myForm.controls['ora'].valid"
-     class="alert alert-danger">Ora Prenotazione non valido
+     class="alert alert-danger">
+     <div *ngIf="myForm.controls['indirizzo'].hasError('required')" class="alert alert-danger">"indirizzo" è richiesto</div>
 </div>
 
-<br>
+<div *ngIf="!myForm.controls['data'].valid"
+     class="alert alert-danger">
+       <div *ngIf="myForm.controls['data'].hasError('required')" class="alert alert-danger">"data" è richiesto</div>
+</div>
+<div *ngIf="!myForm.controls['ora'].valid"
+     class="alert alert-danger">
+      <div *ngIf="myForm.controls['ora'].hasError('required')" class="alert alert-danger">"ora" è richiesto</div>
+</div>
+
+<hr><div class="w-50 text-center" style="margin: 50px auto">
+ <h2>Elenco appuntamenti</h2>
+  <ul class="list-group">
+     
+<app-prenotazione-view *ngIf="selectedPrenotazione" [ciao]="selectedPrenotazione"></app-prenotazione-view>
 <ul class="prenotazioni">
   <li *ngFor="let p of prenotazione"
     [class.selected]="p === selectedPrenotazione"
     (click)="onSelect(p)">
-    <span class="badge">{{p.data}}</span>
-    <span class="ins">{{p.nome}} {{p.cognome}}</span>
+    
+   {{p.nome}} {{p.cognome}} {{p.data}}
   </li>
 </ul>
+    </ul>
 
-
-
-<hr>
-<div>
-<app-prenotazione-view *ngIf="selectedPrenotazione" [ciao]="selectedPrenotazione"></app-prenotazione-view>
 </div>
-
+   
+  

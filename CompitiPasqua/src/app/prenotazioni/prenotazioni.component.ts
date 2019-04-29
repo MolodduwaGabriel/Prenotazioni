@@ -16,12 +16,11 @@ export class PrenotazioniComponent implements OnInit {
  constructor(fb: FormBuilder) {
    this.prenotazione = Array<Prenotazione>();
   this.myForm = fb.group({
-    'nome': ['', Validators.required],
-    'cognome': ['', Validators.required],
-    'indirizzo': ['', Validators.required],
-    'telefono': ['', Validators.required],
-    'data': ['', Validators.required],
-    'ora': ['', Validators.required],
+    'nome': ['nome', Validators.required],
+    'cognome': ['cognome', Validators.required],
+    'indirizzo': ['indirizzo', Validators.required],
+    'data': ['gg/mm/2019', Validators.required],
+    'ora': ['ora', Validators.required],
   });
  }
   ngOnInit() {
@@ -30,7 +29,6 @@ export class PrenotazioniComponent implements OnInit {
     console.log('nome: ', this.myForm.controls['nome'].value );
     console.log('cognome: ', this.myForm.controls['cognome'].value)
     console.log('indirizzo: ', this.myForm.controls['indirizzo'].value)
-    console.log('telefono: ', this.myForm.controls['telefono'].value)
     console.log('data: ', this.myForm.controls['data'].value)
     console.log('ora: ', this.myForm.controls['ora'].value)
     this.addPren();
@@ -43,7 +41,6 @@ export class PrenotazioniComponent implements OnInit {
       pren.nome = this.myForm.controls['nome'].value;
       pren.cognome = this.myForm.controls['cognome'].value;
       pren.indirizzo = this.myForm.controls['indirizzo'].value;
-      pren.telefono = this.myForm.controls['telefono'].value;
       pren.data = this.myForm.controls['data'].value;
       pren.ora = this.myForm.controls['ora'].value;
       this.prenotazione.push(pren);
